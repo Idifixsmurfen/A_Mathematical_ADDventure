@@ -1,3 +1,3 @@
 # First_Game_Lua
 
-Ett interaktivt mattespel i Lua, en ny utmaning väntar (snart) runt varje hörn!
+Ett interaktivt mattespel i Lua, en ny utmaning väntar runt varje hörn!
