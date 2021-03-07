@@ -57,13 +57,12 @@ end
  
 function love.keypressed(key)
     if key == "backspace" then
-        -- get the byte offset to the last UTF-8 character in the string.
+       
         local byteoffset = utf8.offset(playerAnswer, -1)
        
  
         if byteoffset then
-            -- remove the last UTF-8 character.
-            -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
+            
             playerAnswer = string.sub(playerAnswer, 1, byteoffset - 1)
         end
     end
@@ -71,7 +70,7 @@ function love.keypressed(key)
         if playerAnswer == computerAnswer then
             print("Barvo")
             print(playerAnswer)
-            welcomeMessage ="Bravo! ett nytt problem kommer innom kort."
+            welcomeMessage ="Bravo!"
 
         else print ("oops")
             print(playerAnswer)
@@ -97,7 +96,7 @@ function love.draw()
     love.graphics.printf(playerAnswer, 340, 300, love.graphics.getWidth()) --texten spelaren skriver
     
     love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
-    love.graphics.print(welcomeMessage, 340, 220,0 ,1) --texten högst upp på skärmen
+    love.graphics.print(welcomeMessage, 150, 150,0 ,1) --texten som säger om du svarade rätt
 
     love.graphics.setColor(1, 1, 0)
     love.graphics.print("Vad  "..randomNumber_1.."+"..randomNumber_2.."*"..randomNumber_3.."?", 250, 200,0 ,1)
