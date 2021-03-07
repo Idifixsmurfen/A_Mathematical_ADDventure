@@ -1,3 +1,7 @@
+local background = nil
+
+
+function entireGame()
 print("TESTING")
 
 -- RNG ______________________________________
@@ -19,7 +23,10 @@ print(randomNumber_3)
 -- End of RNG _______________________________
 
 
+love.window.setMode( 680, 445 )
+
 welcomeMessage = ""
+playerAnswer = ""
 
 correct = randomNumber_1 + randomNumber_2 * randomNumber_3
 
@@ -35,10 +42,13 @@ computerAnswer = "" .. correct .. "" --konverterar correct till en sträng "comp
 local utf8 = require("utf8")
  
 function love.load()
+
     playerAnswer = "" --fältet där spelaren skriver text
  
-    -- enable key repeat so backspace can be held down to trigger love.keypressed multiple times.
-    love.keyboard.setKeyRepeat(true)
+
+    love.keyboard.setKeyRepeat(true) --möjliggör key repeat
+
+    background = love.graphics.newImage('mathlady.png')
 end
  
 function love.textinput(t)
@@ -61,7 +71,7 @@ function love.keypressed(key)
         if playerAnswer == computerAnswer then
             print("Barvo")
             print(playerAnswer)
-            welcomeMessage ="Bravo!"
+            welcomeMessage ="Bravo! ett nytt problem kommer innom kort."
 
         else print ("oops")
             print(playerAnswer)
@@ -73,21 +83,33 @@ function love.keypressed(key)
     end
 
     if key == "tab" then
-       love.event.quit("restart")
+       entireGame()
     end
 end
  
 function love.draw()
-    love.graphics.setColor(0.7, 0.5, 0) --ändrar textens färg med RGB värde
-    love.graphics.printf(playerAnswer, 70, 450, love.graphics.getWidth()) --texten spelaren skriver
+    love.graphics.setColor(1,1,1,1)
+    love.graphics.draw(background) --bakgrunden
     
-    love.graphics.setColor(0.5, 0.8, 0) --ändrar textens färg med RGB värde
-    love.graphics.print(welcomeMessage, 256, 34,0 ,1) --texten högst upp på skärmen
+    
+    
+    love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
+    love.graphics.printf(playerAnswer, 340, 300, love.graphics.getWidth()) --texten spelaren skriver
+    
+    love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
+    love.graphics.print(welcomeMessage, 340, 220,0 ,1) --texten högst upp på skärmen
 
     love.graphics.setColor(1, 1, 0)
-    love.graphics.print("Vad  "..randomNumber_1.."+"..randomNumber_2.."*"..randomNumber_3.."?", 256, 50,0 ,1)
+    love.graphics.print("Vad  "..randomNumber_1.."+"..randomNumber_2.."*"..randomNumber_3.."?", 250, 200,0 ,1)
 
-    love.graphics.setColor(1, 1, 1)
+
     love.graphics.print("Tryck Tab för att generera ett nytt scenario",10,10,0,1)
+
+    
+
+
 end
 
+end
+
+entireGame()
