@@ -99,7 +99,7 @@ function love.draw()
     love.graphics.print(welcomeMessage, 150, 150,0 ,1) --texten som säger om du svarade rätt
 
     love.graphics.setColor(1, 1, 0)
-    love.graphics.print("Vad  "..randomNumber_1.."+"..randomNumber_2.."*"..randomNumber_3.."?", 250, 200,0 ,1)
+    love.graphics.print("Vad är "..randomNumber_1.."+"..randomNumber_2.."*"..randomNumber_3.."?", 250, 200,0 ,1)
 
 
     love.graphics.print("Tryck Tab för att generera ett nytt scenario",10,10,0,1)
