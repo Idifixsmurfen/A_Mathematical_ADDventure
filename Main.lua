@@ -63,9 +63,11 @@ function entireGame()
 
         if key == "return" then
             if playerAnswer == computerAnswer then
+                welcomeMessage ="Bravo!"
                 print("Barvo")
                 print(playerAnswer)
-                welcomeMessage ="Bravo!"
+
+                sleepTimer(2)
 
             elseif playerAnswer == "69" then
                 welcomeMessage = "Nice."
@@ -85,7 +87,9 @@ function entireGame()
            love.load()
         end
     end
-    
+
+
+
     function love.draw()
 
         love.graphics.setColor(1,1,1,1)
@@ -104,6 +108,12 @@ function entireGame()
 
     end
 
+    function sleepTimer(x)
+        love.timer.sleep(x)
+        love.load()
+    end
+
 end
 
 entireGame()
+
