@@ -9,6 +9,10 @@ function entireGame()
     local utf8 = require("utf8")
     
     function love.load()
+        time = 0
+        pauseBegin = 0
+        pauseDuration = 3
+        isPaused = false
 
             -- RNG ______________________________________
 
@@ -66,8 +70,9 @@ function entireGame()
                 welcomeMessage ="Bravo!"
                 print("Barvo")
                 print(playerAnswer)
+                isPaused = true
+                pauseBegin = time
 
-                sleepTimer(2)
 
             elseif playerAnswer == "69" then
                 welcomeMessage = "Nice."
@@ -86,6 +91,18 @@ function entireGame()
            --entireGame()
            love.load()
         end
+    end
+
+    function love.update(deltaTime)
+        if isPaused == true then
+        time = time + deltaTime
+            if time > pauseBegin + pauseDuration then 
+                isPaused = false
+                love.load()
+                print(deltaTime)
+            end
+        end
+
     end
 
 
@@ -107,11 +124,8 @@ function entireGame()
         love.graphics.print("Tryck Tab för att generera ett nytt scenario",10,10,0,1)
 
     end
-
-    function sleepTimer(x)
-        love.timer.sleep(x)
-        love.load()
-    end
+    
+    
 
 end
 
