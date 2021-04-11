@@ -1,10 +1,8 @@
 local background = nil
 love.window.setTitle("ADDventure, the math jurney")
-print("TESTING")
 love.window.setMode( 680, 445 )
 
-function entireGame()
-    
+   
 
     local utf8 = require("utf8")
     rightCount = 0
@@ -12,12 +10,16 @@ function entireGame()
     r = 0
     g = 0
     b = 0
+    music = love.audio.newSource("Font_background_music/Elevator Music.mp3","static")
+    playM = 0
     question = ""
     tabThing = [[Svårighetsgrader
     F1 = + och -
     F2 = *
     F3 = * och + eller -
     F4 = ^, * och + eller -
+
+    F8 = Musik På/Av
     ]]
     tabMSG = "Tryck Tab för att generera ett nytt scenario eller F5 för att återvända till menyn"
     print("diff"..difficulty)
@@ -31,7 +33,7 @@ function entireGame()
         isPaused = false
         isPausedLevelComplete = false
 
-            -- RNG ______________________________________
+     -- RNG ______________________________________
 
     math.randomseed(love.timer.getTime( ))
     randomNumber_1 = math.random(1,9)
@@ -104,16 +106,15 @@ function entireGame()
     end
     print("diff"..difficulty)
     -- End of Difficulty things ___________________________________
-    --correct = randomNumber_1 + randomNumber_2 * randomNumber_3
-
-    computerAnswer = tostring(correct)--konverterar correct till en sträng "computerAnswer"
 
 
-        playerAnswer = "" --fältet där spelaren skriver text
+    computerAnswer = tostring(correct)-- Converts correct to the string "computerAnswer"
+
+
+        playerAnswer = "" --were the players textinput is
     
-        love.keyboard.setKeyRepeat(true) --möjliggör key repeat
-
-        background = love.graphics.newImage('mathlady2.png')
+        love.keyboard.setKeyRepeat(true) --enables key repeat
+        background = love.graphics.newImage('Font_background_music/mathlady2.png')
         
     end
 
@@ -124,7 +125,9 @@ function entireGame()
         F1 = + och -
         F2 = *
         F3 = * och + eller -
-        F4 = ^ och + eller -
+        F4 = ^, * och + eller -
+    
+        F8 = Musik På/Av
         ]]
         love.load()
         rightCount = 0
@@ -162,7 +165,7 @@ function entireGame()
                     welcomeMessage ="Bravo!"
                     isPaused = true
                 else
-                    welcomeMessage ="bra jobbat! Återvänder till menyn."
+                    welcomeMessage ="bra jobbat! \n Återvänder till menyn."
                     isPausedLevelComplete = true
 
                 end
@@ -187,7 +190,6 @@ function entireGame()
         end
 
         if key == "tab" then
-           --entireGame()
             if rightCount > 0 then
                 rightCount = rightCount - 1
             end
@@ -229,10 +231,21 @@ function entireGame()
 
         end
 
+        if key == "f8" then
+            if playM == 0 then 
+                playM = 1 
+                print(playM)
+            elseif playM == 1 then
+                playM = 0
+                print(playM)
+            end
+        end
+        --[[
         if key == "f12" then
-            rightCount = rightCount + 1--REMOVE ME LATER !!!!!!!!!
+            rightCount = rightCount + 1                     --cheat cheat
             print("rightCount is currently "..rightCount)
         end
+        ]]
 
     end
 
@@ -253,10 +266,16 @@ function entireGame()
                     print(deltaTime)
                 end
         end
-        if rightCount > 4 then -- Function that checks if rightCount is 5
+        if rightCount > 4 then -- Function that checks if rightCount is >4  (i.e5)
             rightCount = 0
             print("rightCount is currently "..rightCount.." (reset)")
             
+        end
+        if playM == 1 then
+            music:play()
+        end
+        if playM == 0 then
+            music:pause()
         end
 
     end
@@ -264,13 +283,13 @@ function entireGame()
 
 
     function love.draw()
-        love.graphics.setNewFont("VarelaRound-Regular.ttf",15)
+        love.graphics.setNewFont("Font_background_music/VarelaRound-Regular.ttf",15)
     
         love.graphics.setColor(1,1,1,1)
-        love.graphics.draw(background) --bakgrunden
+        love.graphics.draw(background) --background
 
-        love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
-        love.graphics.printf(playerAnswer, 320, 300, love.graphics.getWidth()) --texten spelaren skriver
+        love.graphics.setColor(0, 1, 0) --sets text as RGB
+        love.graphics.printf(playerAnswer, 320, 300, love.graphics.getWidth()) --Player input text
 
  
         love.graphics.setColor(1, 1, 0)
@@ -279,16 +298,10 @@ function entireGame()
 
         love.graphics.print(tabThing,10,10,0,1)
 
-        love.graphics.setNewFont("VarelaRound-Regular.ttf",25)
-        love.graphics.setColor(r, g, b) --ändrar textens färg med RGB värde
-        love.graphics.print(welcomeMessage, 290, 150,0 ,1) --texten som säger om du svarade rätt
+        love.graphics.setNewFont("Font_background_music/VarelaRound-Regular.ttf",25)
+        love.graphics.setColor(r, g, b) --sets text as RGB
+        love.graphics.print(welcomeMessage, 290, 150,0 ,1) --text that says right/wrong
 
 
     end
-    
-    
-
-end
-
-entireGame()
 
