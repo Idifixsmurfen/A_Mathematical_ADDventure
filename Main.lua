@@ -9,6 +9,9 @@ function entireGame()
     local utf8 = require("utf8")
     rightCount = 0
     difficulty = 0
+    r = 0
+    g = 0
+    b = 0
     question = ""
     tabThing = [[Svårighetsgrader
     F1 = + och -
@@ -110,7 +113,8 @@ function entireGame()
     
         love.keyboard.setKeyRepeat(true) --möjliggör key repeat
 
-        background = love.graphics.newImage('mathlady.png')
+        background = love.graphics.newImage('mathlady2.png')
+        
     end
 
     function f5Function()
@@ -146,6 +150,9 @@ function entireGame()
         if key == "return" then
             if playerAnswer == computerAnswer then
                 print("Barvo")
+                r=0
+                g=1
+                b=0
                 print(playerAnswer)
                 rightCount = rightCount + 1
                 print("rightCount is currently "..rightCount)
@@ -155,17 +162,23 @@ function entireGame()
                     welcomeMessage ="Bravo!"
                     isPaused = true
                 else
-                    welcomeMessage ="bra jobbat! Återväner till menyn."
+                    welcomeMessage ="bra jobbat! Återvänder till menyn."
                     isPausedLevelComplete = true
 
                 end
 
             elseif playerAnswer == "69" then
                 welcomeMessage = "Nice."
+                r=1
+                g=0.4117647059
+                b=0.7058823529
             
             else print ("oops")
                 print(playerAnswer)
                 welcomeMessage = "Tänk om"
+                r=1
+                g=0
+                b=0
             end
         end
 
@@ -251,20 +264,25 @@ function entireGame()
 
 
     function love.draw()
-
+        love.graphics.setNewFont("VarelaRound-Regular.ttf",15)
+    
         love.graphics.setColor(1,1,1,1)
         love.graphics.draw(background) --bakgrunden
 
         love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
-        love.graphics.printf(playerAnswer, 340, 300, love.graphics.getWidth()) --texten spelaren skriver
+        love.graphics.printf(playerAnswer, 320, 300, love.graphics.getWidth()) --texten spelaren skriver
 
-        love.graphics.setColor(0, 1, 0) --ändrar textens färg med RGB värde
-        love.graphics.print(welcomeMessage, 150, 150,0 ,1) --texten som säger om du svarade rätt
-
+ 
         love.graphics.setColor(1, 1, 0)
-        love.graphics.print(question, 250, 200,0 ,1)
+      
+        love.graphics.print(question, 270, 220 , 0, 1)
 
         love.graphics.print(tabThing,10,10,0,1)
+
+        love.graphics.setNewFont("VarelaRound-Regular.ttf",25)
+        love.graphics.setColor(r, g, b) --ändrar textens färg med RGB värde
+        love.graphics.print(welcomeMessage, 290, 150,0 ,1) --texten som säger om du svarade rätt
+
 
     end
     
