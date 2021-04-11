@@ -7,6 +7,7 @@ function entireGame()
     
 
     local utf8 = require("utf8")
+    rightCount = 0
     
     function love.load()
         time = 0
@@ -25,10 +26,15 @@ function entireGame()
     math.randomseed(love.timer.getTime( ))
     randomNumber_3 = math.random(1,9)
 
+    math.randomseed(love.timer.getTime( ))
+    randomNumber_TTPO = math.random(0,3)
+
 
     print(randomNumber_1)
     print(randomNumber_2)
     print(randomNumber_3)
+    print(randomNumber_TTPO)
+    print("ttpo test"..randomNumber_1 ^ randomNumber_TTPO)
 
     -- End of RNG _______________________________
 
@@ -70,6 +76,8 @@ function entireGame()
                 welcomeMessage ="Bravo!"
                 print("Barvo")
                 print(playerAnswer)
+                rightCount = rightCount + 1
+                print("rightCount is currently "..rightCount)
                 isPaused = true
                 pauseBegin = time
 
@@ -89,18 +97,31 @@ function entireGame()
 
         if key == "tab" then
            --entireGame()
-           love.load()
+            if rightCount > 0 then
+                rightCount = rightCount - 1
+            end
+            print("rightCount is currently "..rightCount)
+            love.load()
+        end
+        if key == "f1" then
+            rightCount = rightCount + 1
+            print("rightCount is currently "..rightCount)
         end
     end
 
     function love.update(deltaTime)
         if isPaused == true then
-        time = time + deltaTime
-            if time > pauseBegin + pauseDuration then 
-                isPaused = false
-                love.load()
-                print(deltaTime)
-            end
+            time = time + deltaTime
+                if time > pauseBegin + pauseDuration then 
+                    isPaused = false
+                    love.load()
+                    print(deltaTime)
+                end
+        end
+        if rightCount > 4 then -- Function that checks if rightCount is 5
+            rightCount = 0
+            print("rightCount is currently "..rightCount.." (reset)")
+            --INSERT BACK TO MENUE FUNCTION
         end
 
     end
