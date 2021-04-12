@@ -13,15 +13,8 @@ love.window.setMode( 680, 445 )
     music = love.audio.newSource("Font_background_music/Elevator Music.mp3","static")
     playM = 0
     question = ""
-    tabThing = [[Svårighetsgrader
-    F1 = + och -
-    F2 = *
-    F3 = * och + eller -
-    F4 = ^, * och + eller -
-
-    F8 = Musik På/Av
-    ]]
-    tabMSG = "Tryck Tab för att generera ett nytt scenario eller F5 för att återvända till menyn"
+    tabThing = "Välkommen till ADDventure, det interaktiva mattespelet!\nSvårighetsgrader\nF1 = + och -\nF2 = *\nF3 = * och + eller -\nF4 = ^, * och + eller -\n\nF8 = Musik På/Av\n\nAnvänd sifrorna för att skiriva ditt svar\nTryck Enter för att se om det var rätt"
+    tabMSG = "Är uppgiften för svår?\nF5 för menyn\nTab för nytt scenario"
     print("diff"..difficulty)
 
     
@@ -29,7 +22,7 @@ love.window.setMode( 680, 445 )
         time = 0
         time2 = 0
         pauseBegin = 0
-        pauseDuration = 3
+        pauseDuration = 0.75
         isPaused = false
         isPausedLevelComplete = false
 
@@ -121,14 +114,7 @@ love.window.setMode( 680, 445 )
     function f5Function()
         difficulty = 0
         question = ""
-        tabThing = [[Svårighetsgrader
-        F1 = + och -
-        F2 = *
-        F3 = * och + eller -
-        F4 = ^, * och + eller -
-    
-        F8 = Musik På/Av
-        ]]
+        tabThing = "Svårighetsgrader\nF1 = + och -\n F2 = *\nF3 = * och + eller -\nF4 = ^, * och + eller -\n\nF8 = Musik På/Av"
         love.load()
         rightCount = 0
         welcomeMessage = ""
@@ -182,6 +168,7 @@ love.window.setMode( 680, 445 )
                 r=1
                 g=0
                 b=0
+                playerAnswer = ""
             end
         end
 
@@ -260,7 +247,7 @@ love.window.setMode( 680, 445 )
         end
         if isPausedLevelComplete == true then
             time2 = time2 + deltaTime
-                if time2 > pauseBegin + pauseDuration then 
+                if time2 > pauseBegin + pauseDuration + pauseDuration then 
                     isPausedLevelComplete = false
                     f5Function()
                     print(deltaTime)
@@ -272,10 +259,10 @@ love.window.setMode( 680, 445 )
             
         end
         if playM == 1 then
-            music:play()
+            music:pause()
         end
         if playM == 0 then
-            music:pause()
+            music:play()
         end
 
     end
