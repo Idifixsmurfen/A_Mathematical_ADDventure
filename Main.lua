@@ -1,5 +1,5 @@
 local background = nil
-love.window.setTitle("ADDventure, the math jurney")
+love.window.setTitle("ADDventure, the math journey")
 love.window.setMode( 680, 445 )
 
    
@@ -21,7 +21,7 @@ love.window.setMode( 680, 445 )
 
     F8 = Musik På/Av
     ]]
-    tabMSG = "Tryck Tab för att generera ett nytt scenario eller F5 för att återvända till menyn"
+    tabMSG = "Är det för svårt?\nTryck Tab för att generera ett nytt scenario eller F5 för att återvända till menyn"
     print("diff"..difficulty)
 
     
@@ -29,7 +29,7 @@ love.window.setMode( 680, 445 )
         time = 0
         time2 = 0
         pauseBegin = 0
-        pauseDuration = 3
+        pauseDuration = .75
         isPaused = false
         isPausedLevelComplete = false
 
@@ -260,7 +260,7 @@ love.window.setMode( 680, 445 )
         end
         if isPausedLevelComplete == true then
             time2 = time2 + deltaTime
-                if time2 > pauseBegin + pauseDuration then 
+                if time2 > pauseBegin + pauseDuration * 2 then 
                     isPausedLevelComplete = false
                     f5Function()
                     print(deltaTime)
